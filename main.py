@@ -8,7 +8,7 @@ def send_weather():
     # 获取天气数据
     url = "https://api.seniverse.com/v3/weather/daily.json"
     payload = {
-        "key":os.getenv(WEATHER_KEY) ,
+        "key":os.getenv("WEATHER_KEY") ,
         "location": "shanghai",
         "language": "zh-Hans",
         "unit": "c",
@@ -31,7 +31,7 @@ def send_weather():
             "text": message
         }
     }
-    response = requests.post(os.getenv(BOT_WEBHOOK) ,
+    response = requests.post(os.getenv("BOT_WEBHOOK") ,
                              headers=headers, json=data)
 
 
