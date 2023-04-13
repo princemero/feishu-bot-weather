@@ -2,13 +2,16 @@ import os
 import requests
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+API = os.getenv("WEATHER_KEY") 
+WEBHOOK = os.getenv("BOT_WEBHOOK") 
+
 
 # 定义一个获取天气信息并推送到飞书机器人的函数
 def send_weather():
     # 获取天气数据
     url = "https://api.seniverse.com/v3/weather/daily.json"
     payload = {
-        "key":os.getenv("WEATHER_KEY") ,
+        "key":API,
         "location": "shanghai",
         "language": "zh-Hans",
         "unit": "c",
@@ -31,7 +34,7 @@ def send_weather():
             "text": message
         }
     }
-    response = requests.post(os.getenv("BOT_WEBHOOK") ,
+    response = requests.post(WEBHOOK,
                              headers=headers, json=data)
 
 
@@ -39,7 +42,7 @@ def send_weather():
 if __name__ == "__main__":
     # 构造定时任务
     scheduler = BlockingScheduler()
-    scheduler.add_job(send_weather, "cron", second =10)
+    scheduler.add_job(send_weather, "cron", second =3)
 
     # 启动定时任务
     scheduler.start()
