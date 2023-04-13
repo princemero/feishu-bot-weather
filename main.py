@@ -39,7 +39,7 @@ def send_weather():
 if __name__ == "__main__":
     # 构造定时任务
     scheduler = BlockingScheduler()
-    scheduler.add_job(send_weather, "cron", day_of_week='mon-fri', hour=os.getenv("HOUR"), minute=os.getenv("MINUTE"))
+    scheduler.add_job(send_weather, "cron", day_of_week='mon-fri', hour=os.getenv("NOW_HOUR"), minute=os.getenv("NOW_MINUTE"))
 
     # 启动定时任务
     scheduler.start()
